@@ -80,6 +80,7 @@ export class UserComponent extends EntityComponent<User>{
         phone: [entity ? entity.phone : ''],
         additionalInfo: this.fb.group(
           {
+            alternateAuthorityDisplayName: [entity && entity.additionalInfo ? entity.additionalInfo.alternateAuthorityDisplayName : ''],
             description: [entity && entity.additionalInfo ? entity.additionalInfo.description : ''],
             lang: [entity && entity.additionalInfo ? entity.additionalInfo.lang : null],
             unitSystem: [entity && entity.additionalInfo ? entity.additionalInfo.unitSystem : null],
@@ -100,6 +101,8 @@ export class UserComponent extends EntityComponent<User>{
     this.entityForm.patchValue({lastName: entity.lastName});
     this.entityForm.patchValue({phone: entity.phone});
     this.entityForm.patchValue({additionalInfo: {description: entity.additionalInfo ? entity.additionalInfo.description : ''}});
+    this.entityForm.patchValue({additionalInfo:
+        {alternateAuthorityDisplayName: entity.additionalInfo ? entity.additionalInfo.alternateAuthorityDisplayName : ''}});
     this.entityForm.patchValue({additionalInfo:
         {lang: entity.additionalInfo ? entity.additionalInfo.lang : null}});
     this.entityForm.patchValue({additionalInfo:

@@ -23,6 +23,7 @@ import { selectAuthUser, selectUserDetails } from '@core/auth/auth.selectors';
 import { map } from 'rxjs/operators';
 import { AuthService } from '@core/auth/auth.service';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'tb-user-menu',
@@ -38,7 +39,7 @@ export class UserMenuComponent implements OnInit, OnDestroy {
 
   authority$ = this.store.pipe(
     select(selectAuthUser),
-    map((authUser) => authUser ? authUser.authority : Authority.ANONYMOUS)
+    map((authUser) => authUser)
   );
 
   authorityName$ = this.store.pipe(
@@ -53,7 +54,8 @@ export class UserMenuComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store<AppState>,
               private router: Router,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private translate: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -65,17 +67,28 @@ export class UserMenuComponent implements OnInit, OnDestroy {
   getAuthorityName(user: User): string {
     let name = null;
     if (user) {
-      const authority = user.authority;
-      switch (authority) {
-        case Authority.SYS_ADMIN:
-          name = 'user.sys-admin';
-          break;
-        case Authority.TENANT_ADMIN:
-          name = 'user.tenant-admin';
-          break;
-        case Authority.CUSTOMER_USER:
-          name = 'user.customer';
-          break;
+      if (user.additionalInfo 
+        && user.additionalInfo.alternateAuthorityDisplayName
+        && user.additionalInfo.alternateAuthorityDisplayName.length > 0 ) {
+        name = user.additionalInfo.alternateAuthorityDisplayName;
+      }
+      else {
+        const authority = user.authority;
+        switch (authority) {
+          case Authority.SYS_ADMIN:
+            name = 'user.sys-admin';
+            break;
+          case Authority.TENANT_ADMIN:
+            name = 'user.tenant-admin';
+            break;
+          case Authority.CUSTOMER_USER:
+            name = 'user.customer';
+            break;
+          default:
+            name = Authority.ANONYMOUS;
+            break;
+        }
+        name = this.translate.instant(name);
       }
     }
     return name;

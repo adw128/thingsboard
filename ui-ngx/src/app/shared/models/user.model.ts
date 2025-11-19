@@ -36,6 +36,7 @@ export interface User extends BaseData<UserId>, HasTenantId {
 export interface UserAdditionalInfo {
   userCredentialsEnabled: boolean;
   userActivated: boolean;
+  alternateAuthorityDisplayName: string;
   description: string;
   defaultDashboardId: string;
   defaultDashboardFullscreen: boolean;

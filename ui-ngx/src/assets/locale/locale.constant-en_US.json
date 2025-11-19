@@ -7074,6 +7074,7 @@
         "invalid-email-format": "Invalid email format.",
         "first-name": "First name",
         "last-name": "Last name",
+        "alternate-authority-display-name": "Alternate Authority Display Name",
         "description": "Description",
         "default-dashboard": "Default dashboard",
         "always-fullscreen": "Always fullscreen",
