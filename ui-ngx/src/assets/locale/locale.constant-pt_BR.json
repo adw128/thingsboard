@@ -1670,7 +1670,8 @@
     "disable-account": "Desativar conta de usuário",
     "enable-account": "Ativar conta de usuário",
     "enable-account-message": "A conta de usuário foi ativada corretamente!",
-    "disable-account-message": "A conta de usuário foi desativada corretamente!"
+    "disable-account-message": "A conta de usuário foi desativada corretamente!",
+    "alternate-authority-display-name": "Nome alternativo de autoridade"
   },
   "value": {
     "type": "Tipo de valor",

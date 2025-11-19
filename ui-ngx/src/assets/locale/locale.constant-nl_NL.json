@@ -6278,7 +6278,8 @@
     "copyId": "Kopieer gebruikers-ID",
     "idCopiedMessage": "Gebruikers-ID is gekopieerd naar klembord",
     "user-list": "Gebruikerslijst",
-    "user-list-required": "Gebruikerslijst is verplicht"
+    "user-list-required": "Gebruikerslijst is verplicht",
+    "alternate-authority-display-name": "Alternatieve autoriteitsweergavenaam"
   },
   "value": {
     "type": "Waarde type",

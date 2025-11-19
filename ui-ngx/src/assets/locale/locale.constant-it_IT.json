@@ -6277,7 +6277,8 @@
     "copyId": "Copia ID utente",
     "idCopiedMessage": "L'ID utente è stato copiato negli appunti",
     "user-list": "Elenco utenti",
-    "user-list-required": "L'elenco utenti è obbligatorio"
+    "user-list-required": "L'elenco utenti è obbligatorio",
+    "alternate-authority-display-name": "Nome alternativo dell'autorità"
   },
   "value": {
     "type": "Tipo di valore",

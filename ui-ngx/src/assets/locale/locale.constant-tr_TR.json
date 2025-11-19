@@ -6592,7 +6592,8 @@
     "copyId": "Kullanıcı Kimliğini kopyala",
     "idCopiedMessage": "Kullanıcı Kimliği panoya kopyalandı",
     "user-list": "Kullanıcı listesi",
-    "user-list-required": "Kullanıcı listesi gereklidir"
+    "user-list-required": "Kullanıcı listesi gereklidir",
+    "alternate-authority-display-name": "Alternatif yetki görüntü adı"
   },
   "value": {
     "type": "Değer türü",

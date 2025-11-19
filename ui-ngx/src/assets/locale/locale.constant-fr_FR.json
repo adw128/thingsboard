@@ -6592,7 +6592,8 @@
     "copyId": "Copier l'identifiant de l'utilisateur",
     "idCopiedMessage": "L'identifiant de l'utilisateur a été copié dans le presse-papiers",
     "user-list": "Liste des utilisateurs",
-    "user-list-required": "La liste des utilisateurs est requise"
+    "user-list-required": "La liste des utilisateurs est requise",
+    "alternate-authority-display-name": "Nom d'autorité alternatif"
   },
   "value": {
     "type": "Type de valeur",

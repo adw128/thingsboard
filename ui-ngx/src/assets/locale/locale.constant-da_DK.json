@@ -6592,7 +6592,8 @@
     "copyId": "Kopiér bruger-id",
     "idCopiedMessage": "Bruger-id blev kopieret til udklipsholder",
     "user-list": "Brugerliste",
-    "user-list-required": "Brugerliste er påkrævet"
+    "user-list-required": "Brugerliste er påkrævet",
+    "alternate-authority-display-name": "Alternativt autoritetsvisningsnavn"
   },
   "value": {
     "type": "Værditype",

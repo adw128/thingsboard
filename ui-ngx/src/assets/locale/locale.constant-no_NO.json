@@ -6278,7 +6278,8 @@
     "copyId": "Kopier bruker-ID",
     "idCopiedMessage": "Bruker-ID er kopiert til utklippstavlen",
     "user-list": "Brukerliste",
-    "user-list-required": "Brukerliste er påkrevd"
+    "user-list-required": "Brukerliste er påkrevd",
+    "alternate-authority-display-name": "Alternativt autoritetsvisningsnavn"
   },
   "value": {
     "type": "Verditype",

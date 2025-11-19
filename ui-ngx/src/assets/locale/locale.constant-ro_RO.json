@@ -1400,7 +1400,7 @@
         "metadata-required": "Intrările metadata nu pot fi vide",
         "output": "Ieşire",
         "test": "Test",
-        "help": "Ajutor",
+        "help": "Ajutor"
     },
     "tenant": {
         "tenant": "Locatar",
@@ -1500,7 +1500,8 @@
         "disable-account": "Dezactivează cont utilizator",
         "enable-account": "Activează cont utilizator",
         "enable-account-message": "Cont utilizator activat!",
-        "disable-account-message": "Cont utilizator dezactivat!"
+        "disable-account-message": "Cont utilizator dezactivat!",
+        "alternate-authority-display-name": "Nume alternativ al autorității"
     },
     "value": {
         "type": "Tip Valoare",

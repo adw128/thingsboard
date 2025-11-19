@@ -2674,7 +2674,8 @@
         "disable-account": "Zakázat uživatelský účet",
         "enable-account": "Povolit uživatelský účet",
         "enable-account-message": "Uživatelský účet byl úspěšně povolen!",
-        "disable-account-message": "Uživatelský účet byl úspěšně zakázán!"
+        "disable-account-message": "Uživatelský účet byl úspěšně zakázán!",
+        "alternate-authority-display-name": "Alternativní název autority"
     },
     "value": {
         "type": "Typ hodnoty",

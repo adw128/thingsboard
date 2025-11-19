@@ -4332,7 +4332,8 @@
         "enable-account-message": "El compte d'usuari s'ha habilitat correctament!",
         "disable-account-message": "El compte d'usuari s'ha deshabilitat correctament!!",
         "copyId": "Copia l'ID de l'usuari",
-        "idCopiedMessage": "L'identificador d'usuari s'ha copiat al porta-retalls"
+        "idCopiedMessage": "L'identificador d'usuari s'ha copiat al porta-retalls",
+        "alternate-authority-display-name": "Nom alternatiu de l'autoritat"
     },
     "value": {
         "type": "Tipus de valor",

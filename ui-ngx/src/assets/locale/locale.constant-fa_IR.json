@@ -1386,7 +1386,8 @@
         "activation-link-copied-message": "پيوند فعال سازي کاربر در حافظه موقت رونوشت شد",
         "details": "جزئيات",
         "login-as-tenant-admin": "ورود به عنوان کاربر مدير",
-        "login-as-customer-user": "ورود به عنوان کاربر مشتري"
+        "login-as-customer-user": "ورود به عنوان کاربر مشتري",
+        "alternate-authority-display-name": "نام نمایشی جایگزین مرجع"
     },
     "value": {
         "type": "نوع مقدار",

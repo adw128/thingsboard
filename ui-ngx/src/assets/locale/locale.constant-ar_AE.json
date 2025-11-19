@@ -5858,7 +5858,8 @@
         "copyId": "نسخ معرف المستخدم",
         "idCopiedMessage": "تم نسخ معرف المستخدم إلى الحافظة",
         "user-list": "قائمة المستخدمين",
-        "user-list-required": "قائمة المستخدمين مطلوبة"
+        "user-list-required": "قائمة المستخدمين مطلوبة",
+        "alternate-authority-display-name": "اسم عرض السلطة البديل"
     },
     "value": {
         "type": "نوع القيمة",

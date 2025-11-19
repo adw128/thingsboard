@@ -5757,7 +5757,8 @@
         "copyId": "Skopiuj identyfikator użytkownika",
         "idCopiedMessage": "Identyfikator użytkownika został skopiowany do schowka",
         "user-list": "Lista użytkowników",
-        "user-list-required": "Lista użytkowników jest wymagana"
+        "user-list-required": "Lista użytkowników jest wymagana",
+        "alternate-authority-display-name": "Alternatywna nazwa wyświetlana organu"
     },
     "value": {
         "type": "Typ wartości",

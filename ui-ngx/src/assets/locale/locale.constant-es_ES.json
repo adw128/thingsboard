@@ -6592,7 +6592,8 @@
     "copyId": "Copiar ID del usuario",
     "idCopiedMessage": "El ID del usuario ha sido copiado al portapapeles",
     "user-list": "Lista de usuarios",
-    "user-list-required": "Se requiere la lista de usuarios"
+    "user-list-required": "Se requiere la lista de usuarios",
+    "alternate-authority-display-name": "Nombre alternativo de autoridad"
   },
   "value": {
     "type": "Tipo de valor",

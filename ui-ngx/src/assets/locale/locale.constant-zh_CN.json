@@ -5334,7 +5334,8 @@
         "copyId": "复制用户ID",
         "idCopiedMessage": "用户ID已复制到剪贴板",
         "user-list": "用户列表",
-        "user-list-required": "用户列表必填。"
+        "user-list-required": "用户列表必填。",
+        "alternate-authority-display-name": "备用权限显示名称"
     },
     "value": {
         "type": "值类型",

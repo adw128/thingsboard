@@ -2084,7 +2084,8 @@
     "disable-account": "Onemogoči uporabniški račun",
     "enable-account": "Omogoči uporabniški račun",
     "enable-account-message": "Uporabniški račun je bil uspešno omogočen!",
-    "disable-account-message": "Uporabniški račun je bil uspešno onemogočen!"
+    "disable-account-message": "Uporabniški račun je bil uspešno onemogočen!",
+    "alternate-authority-display-name": "Nadomestno prikazano ime avtoritete"
   },
   "value": {
     "type": "Vrsta vrednosti",

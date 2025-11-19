@@ -1272,7 +1272,8 @@
 		"activation-link-text": "<a href='{{activationLink}}' target='_blank'>activation link</a> :",
 		"copy-activation-link": "アクティブ化リンクをコピーする",
 		"activation-link-copied-message": "ユーザーのアクティベーションリンクがクリップボードにコピーされました",
-		"details": "詳細"
+		"details": "詳細",
+		"alternate-authority-display-name": "代替権限表示名"
 	},
 	"value": {
 		"type": "値のタイプ",

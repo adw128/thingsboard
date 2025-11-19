@@ -1433,7 +1433,8 @@
         "activation-link-copied-message": "Lietotāja aktivizācijas saite ir kopēta uz starpliktuvi",
         "details": "Detaļas",
         "login-as-tenant-admin": "Login kā īrnieka administrātors",
-        "login-as-customer-user": "Login kā klienta lietotājs"
+        "login-as-customer-user": "Login kā klienta lietotājs",
+        "alternate-authority-display-name": "Alternatīvais autoritātes nosaukums"
     },
     "value": {
         "type": "Vērtības tips",

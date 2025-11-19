@@ -2083,7 +2083,8 @@
         "disable-account": "사용자 계정 비활성화",
         "enable-account": "사용자 계정 활성",
         "enable-account-message": "사용자 계정이 성공적으로 활성화 되었습니다!",
-        "disable-account-message": "사용자 계정이 성공적으로 비활성화 되었습니다!"
+        "disable-account-message": "사용자 계정이 성공적으로 비활성화 되었습니다!",
+        "alternate-authority-display-name": "대체 권한 표시 이름"
     },
     "value": {
         "type": "값 유형",

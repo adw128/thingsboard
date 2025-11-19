@@ -6592,7 +6592,8 @@
     "copyId": "Benutzer-ID kopieren",
     "idCopiedMessage": "Benutzer-ID wurde in die Zwischenablage kopiert",
     "user-list": "Benutzerliste",
-    "user-list-required": "Benutzerliste ist erforderlich"
+    "user-list-required": "Benutzerliste ist erforderlich",
+    "alternate-authority-display-name": "Alternativer Anzeige­name der Autorität"
   },
   "value": {
     "type": "Werttyp",

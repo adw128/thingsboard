@@ -6591,7 +6591,8 @@
     "copyId": "Kopijuoti vartotojo ID",
     "idCopiedMessage": "Vartotojo ID nukopijuotas į iškarpinę",
     "user-list": "Vartotojų sąrašas",
-    "user-list-required": "Vartotojų sąrašas būtinas"
+    "user-list-required": "Vartotojų sąrašas būtinas",
+    "alternate-authority-display-name": "Alternatyvus valdžios rodinys"
   },
   "value": {
     "type": "Reikšmės tipas",

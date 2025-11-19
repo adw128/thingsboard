@@ -3182,7 +3182,8 @@
         "enable-account-message": "用戶帳號已成功啓用",
         "disable-account-message": "用戶帳號已成功關閉",
         "copyId": "複製用戶Id",
-        "idCopiedMessage": "用戶Id已複製到剪貼板"
+        "idCopiedMessage": "用戶Id已複製到剪貼板",
+        "alternate-authority-display-name": "替代權限顯示名稱"
     },
     "value": {
         "type": "值類型",
