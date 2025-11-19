@@ -71,6 +71,9 @@ public enum TbMsgType {
     PROVISION_FAILURE,
     SEND_EMAIL,
     REST_API_REQUEST("REST API request"),
+    LOCKOUT("Account lockout"),
+    ACTIVATED("Account Activated"),
+    TWO_FA_UPDATED("2FA Updated"),
 
     // tellSelfOnly types
     GENERATOR_NODE_SELF_MSG(null, true),

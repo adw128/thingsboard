@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.thingsboard.common.util.JacksonUtil;
 import org.thingsboard.server.common.data.AdminSettings;
 import org.thingsboard.server.common.data.User;
+import org.thingsboard.server.common.data.audit.ActionType;
 import org.thingsboard.server.common.data.exception.ThingsboardException;
 import org.thingsboard.server.common.data.id.TenantId;
 import org.thingsboard.server.common.data.security.UserAuthSettings;
@@ -35,6 +36,7 @@ import org.thingsboard.server.dao.service.ConstraintValidator;
 import org.thingsboard.server.dao.settings.AdminSettingsDao;
 import org.thingsboard.server.dao.settings.AdminSettingsService;
 import org.thingsboard.server.dao.user.UserAuthSettingsDao;
+import org.thingsboard.server.service.entitiy.TbLogEntityActionService;
 import org.thingsboard.server.service.security.auth.mfa.TwoFactorAuthService;
 
 import java.util.Comparator;
@@ -51,6 +53,9 @@ public class DefaultTwoFaConfigManager implements TwoFaConfigManager {
     private final AdminSettingsDao adminSettingsDao;
     @Autowired @Lazy
     private TwoFactorAuthService twoFactorAuthService;
+
+    @Autowired
+    protected TbLogEntityActionService logEntityActionService;
 
     protected static final String TWO_FACTOR_AUTH_SETTINGS_KEY = "twoFaSettings";
 
@@ -102,6 +107,7 @@ public class DefaultTwoFaConfigManager implements TwoFaConfigManager {
         settings.getConfigs().values().forEach(accountConfig -> accountConfig.setSerializeHiddenFields(true));
         userAuthSettingsDao.save(tenantId, userAuthSettings);
         settings.getConfigs().values().forEach(accountConfig -> accountConfig.setSerializeHiddenFields(false));
+        logEntityActionService.logEntityAction(user.getTenantId(), user.getId(), null, ActionType.TWO_FA_UPDATED, user, settings);
         return settings;
     }
 

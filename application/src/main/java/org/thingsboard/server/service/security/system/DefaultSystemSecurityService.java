@@ -29,6 +29,7 @@ import org.passay.PasswordValidator;
 import org.passay.Rule;
 import org.passay.RuleResult;
 import org.passay.WhitespaceRule;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
@@ -55,6 +56,7 @@ import org.thingsboard.server.dao.settings.AdminSettingsService;
 import org.thingsboard.server.dao.settings.SecuritySettingsService;
 import org.thingsboard.server.dao.user.UserService;
 import org.thingsboard.server.dao.user.UserServiceImpl;
+import org.thingsboard.server.service.entitiy.TbLogEntityActionService;
 import org.thingsboard.server.service.security.auth.rest.RestAuthenticationDetails;
 import org.thingsboard.server.service.security.exception.UserPasswordExpiredException;
 import org.thingsboard.server.service.security.model.SecurityUser;
@@ -78,6 +80,9 @@ public class DefaultSystemSecurityService implements SystemSecurityService {
     private final AuditLogService auditLogService;
     private final SecuritySettingsService securitySettingsService;
 
+    @Autowired
+    protected TbLogEntityActionService logEntityActionService;
+
     @Override
     public void validateUserCredentials(TenantId tenantId, UserCredentials userCredentials, String username, String password) throws AuthenticationException {
         if (!encoder.matches(password, userCredentials.getPassword())) {
@@ -85,7 +90,7 @@ public class DefaultSystemSecurityService implements SystemSecurityService {
             SecuritySettings securitySettings = securitySettingsService.getSecuritySettings();
             if (securitySettings.getMaxFailedLoginAttempts() != null && securitySettings.getMaxFailedLoginAttempts() > 0) {
                 if (failedLoginAttempts > securitySettings.getMaxFailedLoginAttempts() && userCredentials.isEnabled()) {
-                    lockAccount(userCredentials.getUserId(), username, securitySettings.getUserLockoutNotificationEmail(), securitySettings.getMaxFailedLoginAttempts());
+                    lockAccount(userCredentials.getUserId(), username, tenantId, securitySettings.getUserLockoutNotificationEmail(), securitySettings.getMaxFailedLoginAttempts());
                     throw new LockedException("Authentication Failed. Username was locked due to security policy.");
                 }
             }
@@ -125,15 +130,14 @@ public class DefaultSystemSecurityService implements SystemSecurityService {
         Integer maxVerificationFailures = twoFaSettings.getMaxVerificationFailuresBeforeUserLockout();
         if (maxVerificationFailures != null && maxVerificationFailures > 0
                 && failedVerificationAttempts >= maxVerificationFailures) {
-            userService.setUserCredentialsEnabled(TenantId.SYS_TENANT_ID, userId, false);
             SecuritySettings securitySettings = securitySettingsService.getSecuritySettings();
-            lockAccount(userId, securityUser.getEmail(), securitySettings.getUserLockoutNotificationEmail(), maxVerificationFailures);
+            lockAccount(userId, securityUser.getEmail(), tenantId, securitySettings.getUserLockoutNotificationEmail(), maxVerificationFailures);
             throw new LockedException("User account was locked due to exceeded 2FA verification attempts");
         }
     }
 
-    private void lockAccount(UserId userId, String username, String userLockoutNotificationEmail, Integer maxFailedLoginAttempts) {
-        userService.setUserCredentialsEnabled(TenantId.SYS_TENANT_ID, userId, false);
+    private void lockAccount(UserId userId, String username, TenantId tenantId, String userLockoutNotificationEmail, Integer maxFailedLoginAttempts) {
+        userService.setUserCredentialsEnabled(tenantId, userId, false);
         if (StringUtils.isNotBlank(userLockoutNotificationEmail)) {
             try {
                 mailService.sendAccountLockoutEmail(username, userLockoutNotificationEmail, maxFailedLoginAttempts);
@@ -141,6 +145,8 @@ public class DefaultSystemSecurityService implements SystemSecurityService {
                 log.warn("Can't send email regarding user account [{}] lockout to provided email [{}]", username, userLockoutNotificationEmail, e);
             }
         }
+        UserCredentials credentials = userService.findUserCredentialsByUserId(tenantId, userId);
+        logEntityActionService.logEntityAction(tenantId, userId, null, ActionType.LOCKOUT, null, false, credentials);
     }
 
     @Override

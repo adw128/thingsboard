@@ -45,6 +45,7 @@ import org.thingsboard.server.common.data.User;
 import org.thingsboard.server.common.data.UserActivationLink;
 import org.thingsboard.server.common.data.UserEmailInfo;
 import org.thingsboard.server.common.data.alarm.Alarm;
+import org.thingsboard.server.common.data.audit.ActionType;
 import org.thingsboard.server.common.data.exception.ThingsboardErrorCode;
 import org.thingsboard.server.common.data.exception.ThingsboardException;
 import org.thingsboard.server.common.data.id.AlarmId;
@@ -399,9 +400,11 @@ public class UserController extends BaseController {
         checkParameter(USER_ID, strUserId);
         UserId userId = new UserId(toUUID(strUserId));
         User user = checkUserId(userId, Operation.WRITE);
-        TenantId tenantId = getCurrentUser().getTenantId();
+        User currentUser = getCurrentUser();
+        TenantId tenantId = currentUser.getTenantId();
         userService.setUserCredentialsEnabled(tenantId, userId, userCredentialsEnabled);
-
+        UserCredentials credentials = userService.findUserCredentialsByUserId(tenantId, userId);
+        logEntityActionService.logEntityAction(tenantId, userId, null, ActionType.LOCKOUT, currentUser, userCredentialsEnabled, credentials);
         if (!userCredentialsEnabled) {
             eventPublisher.publishEvent(new UserCredentialsInvalidationEvent(userId));
         }

@@ -33,7 +33,7 @@ public enum ActionType {
     CREDENTIALS_UPDATED, // log new credentials
     ASSIGNED_TO_CUSTOMER(TbMsgType.ENTITY_ASSIGNED), // log customer name
     UNASSIGNED_FROM_CUSTOMER(TbMsgType.ENTITY_UNASSIGNED), // log customer name
-    ACTIVATED, // log string id
+    ACTIVATED(TbMsgType.ACTIVATED), // log string id
     SUSPENDED, // log string id
     CREDENTIALS_READ(true), // log device id
     ATTRIBUTES_READ(true), // log attributes
@@ -48,7 +48,8 @@ public enum ActionType {
     ALARM_UNASSIGNED(TbMsgType.ALARM_UNASSIGNED, true),
     LOGIN,
     LOGOUT,
-    LOCKOUT,
+    LOCKOUT(TbMsgType.LOCKOUT),
+    TWO_FA_UPDATED(TbMsgType.TWO_FA_UPDATED),
     ASSIGNED_FROM_TENANT(TbMsgType.ENTITY_ASSIGNED_FROM_TENANT),
     ASSIGNED_TO_TENANT(TbMsgType.ENTITY_ASSIGNED_TO_TENANT),
     PROVISION_SUCCESS(TbMsgType.PROVISION_SUCCESS),

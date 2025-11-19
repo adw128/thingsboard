@@ -44,6 +44,8 @@ import org.thingsboard.server.common.data.notification.rule.trigger.AlarmComment
 import org.thingsboard.server.common.data.notification.rule.trigger.EntitiesLimitTrigger;
 import org.thingsboard.server.common.data.notification.rule.trigger.EntityActionTrigger;
 import org.thingsboard.server.common.data.relation.EntityRelation;
+import org.thingsboard.server.common.data.security.UserCredentials;
+import org.thingsboard.server.common.data.security.model.mfa.account.AccountTwoFaSettings;
 import org.thingsboard.server.common.msg.TbMsg;
 import org.thingsboard.server.common.msg.TbMsgDataType;
 import org.thingsboard.server.common.msg.TbMsgMetaData;
@@ -161,6 +163,16 @@ public class EntityActionService {
                         entityNode.put("endTs", extractParameter(Long.class, 2, additionalInfo));
                     } else if (ActionType.RELATION_ADD_OR_UPDATE.equals(actionType) || ActionType.RELATION_DELETED.equals(actionType)) {
                         entityNode = JacksonUtil.OBJECT_MAPPER.valueToTree(extractParameter(EntityRelation.class, 0, additionalInfo));
+                    } else if (ActionType.LOCKOUT.equals(actionType)) {
+                        Boolean state = extractParameter(Boolean.class, 0, additionalInfo);
+                        metaData.putValue("enabled", Boolean.toString(state));
+                        UserCredentials credentials = extractParameter(UserCredentials.class, 1, additionalInfo);
+                        entityNode = JacksonUtil.OBJECT_MAPPER.valueToTree(credentials);
+                        entityNode.remove("password");
+                        entityNode.remove("userPasswordHistory");
+                    } else if (ActionType.TWO_FA_UPDATED.equals(actionType)) {
+                        AccountTwoFaSettings twoDaSettings = extractParameter(AccountTwoFaSettings.class, 0, additionalInfo);
+                        entityNode = JacksonUtil.OBJECT_MAPPER.valueToTree(twoDaSettings);
                     }
                 }
 
