@@ -16,6 +16,8 @@
 package org.thingsboard.server.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.servlet.http.HttpServletRequest;
@@ -64,12 +66,14 @@ import org.thingsboard.server.common.data.security.Authority;
 import org.thingsboard.server.common.data.security.UserCredentials;
 import org.thingsboard.server.common.data.security.event.UserCredentialsInvalidationEvent;
 import org.thingsboard.server.common.data.security.model.JwtPair;
+import org.thingsboard.server.common.data.security.model.SecuritySettings;
 import org.thingsboard.server.common.data.settings.UserDashboardAction;
 import org.thingsboard.server.common.data.settings.UserDashboardsInfo;
 import org.thingsboard.server.common.data.settings.UserSettings;
 import org.thingsboard.server.common.data.settings.UserSettingsType;
 import org.thingsboard.server.config.annotations.ApiOperation;
 import org.thingsboard.server.dao.entity.EntityService;
+import org.thingsboard.server.dao.settings.SecuritySettingsService;
 import org.thingsboard.server.queue.util.TbCoreComponent;
 import org.thingsboard.server.service.entitiy.user.TbUserService;
 import org.thingsboard.server.service.query.EntityQueryService;
@@ -84,6 +88,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static org.thingsboard.server.common.data.query.EntityKeyType.ENTITY_FIELD;
 import static org.thingsboard.server.controller.ControllerConstants.ALARM_ID_PARAM_DESCRIPTION;
@@ -126,22 +131,38 @@ public class UserController extends BaseController {
     private final TbUserService tbUserService;
     private final EntityQueryService entityQueryService;
     private final EntityService entityService;
+    private final SecuritySettingsService securitySettingsService;
 
     @ApiOperation(value = "Get User (getUserById)",
             notes = "Fetch the User object based on the provided User Id. " +
                     "If the user has the authority of 'SYS_ADMIN', the server does not perform additional checks. " +
                     "If the user has the authority of 'TENANT_ADMIN', the server checks that the requested user is owned by the same tenant. " +
-                    "If the user has the authority of 'CUSTOMER_USER', the server checks that the requested user is owned by the same customer.")
+                    "If the user has the authority of 'CUSTOMER_USER', the server checks that the requested user is owned by the same customer." +
+                    "\n\nShow or Hide the number of milliseconds till the users password expires by setting 'showExpiry=true' in the query params")
     @PreAuthorize("hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')")
     @RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
     @ResponseBody
     public User getUserById(
             @Parameter(description = USER_ID_PARAM_DESCRIPTION)
-            @PathVariable(USER_ID) String strUserId) throws ThingsboardException {
+            @PathVariable(USER_ID) String strUserId,
+            @Parameter(description = "Show (\"true\") or hide (\"false\") the time to password expiry in milliseconds.", schema = @Schema(defaultValue = "true"))
+            @RequestParam(required = false, defaultValue = "false") boolean showExpiry) throws ThingsboardException {
         checkParameter(USER_ID, strUserId);
         UserId userId = new UserId(toUUID(strUserId));
         User user = checkUserId(userId, Operation.READ);
         checkUserInfo(user);
+        if (showExpiry) {
+            ObjectNode additionalInfo = (ObjectNode) user.getAdditionalInfo();
+            SecuritySettings securitySettings = securitySettingsService.getSecuritySettings();
+            Integer expiryPeriod = securitySettings.getPasswordPolicy().getPasswordExpirationPeriodDays();
+            Long timeToExpiry = -1L;
+            if (expiryPeriod != null && expiryPeriod.intValue() > 0) {
+                UserCredentials userCredentials = userService.findUserCredentialsByUserId(getCurrentUser().getTenantId(), userId);
+                Long expiryTs = userCredentials.getCreatedTime() + TimeUnit.DAYS.toMillis(securitySettings.getPasswordPolicy().getPasswordExpirationPeriodDays());
+                timeToExpiry = expiryTs - System.currentTimeMillis();
+            }
+            additionalInfo.put("timeToExpiryMs", (timeToExpiry < -1) ? 0 : timeToExpiry);
+        }
         return user;
     }
 
