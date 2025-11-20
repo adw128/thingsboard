@@ -210,7 +210,7 @@ public class AuthController extends BaseController {
         String encodedPassword = passwordEncoder.encode(password);
         UserCredentials credentials = userService.activateUserCredentials(TenantId.SYS_TENANT_ID, activateToken, encodedPassword);
         User user = userService.findUserById(TenantId.SYS_TENANT_ID, credentials.getUserId());
-        logEntityActionService.logEntityAction(user.getTenantId(), null, user, ActionType.ACTIVATED, null);
+        logEntityActionService.logEntityAction(user.getTenantId(), user.getId(), user, ActionType.ACTIVATED, null);
         UserPrincipal principal = new UserPrincipal(UserPrincipal.Type.USER_NAME, user.getEmail());
         SecurityUser securityUser = new SecurityUser(user, credentials.isEnabled(), principal);
         userService.setUserCredentialsEnabled(user.getTenantId(), user.getId(), true);
