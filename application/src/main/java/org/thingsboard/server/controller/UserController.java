@@ -407,6 +407,19 @@ public class UserController extends BaseController {
         }
     }
 
+    @ApiOperation(value = "Invalidate User's sessions (invalidateUserSessions)",
+            notes = "Invalid all of a user's session forcing them to resign in")
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')")
+    @RequestMapping(value = "/user/{userId}/invalidate", method = RequestMethod.POST)
+    @ResponseBody
+    public void invalidateUserSessions(
+            @Parameter(description = USER_ID_PARAM_DESCRIPTION)
+            @PathVariable(USER_ID) String strUserId) throws ThingsboardException {
+        checkParameter(USER_ID, strUserId);
+        UserId userId = new UserId(toUUID(strUserId));
+        eventPublisher.publishEvent(new UserCredentialsInvalidationEvent(userId));
+    }
+
     @ApiOperation(value = "Get usersForAssign (getUsersForAssign)",
             notes = "Returns page of user data objects that can be assigned to provided alarmId. " +
                     "Search is been executed by email, firstName and lastName fields. " +
