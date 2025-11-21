@@ -408,7 +408,7 @@ public class UserController extends BaseController {
     }
 
     @ApiOperation(value = "Invalidate User's sessions (invalidateUserSessions)",
-            notes = "Invalid all of a user's session forcing them to resign in")
+            notes = "Invalidate all of a user's sessions forcing them to sign in. " + TENANT_AUTHORITY_PARAGRAPH)
     @PreAuthorize("hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')")
     @RequestMapping(value = "/user/{userId}/invalidate", method = RequestMethod.POST)
     @ResponseBody
